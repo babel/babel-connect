@@ -9,9 +9,9 @@
 ## Usage
 
 ```javascript
-var to5 = require("6to5");
+var to5Middleware = require("6to5-connect");
 
-app.use(to5.middleware({
+app.use(to5Middleware({
   options: {
     // options to use when transforming files
   },
