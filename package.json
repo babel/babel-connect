@@ -1,6 +1,7 @@
 {
   "name": "6to5-connect",
-  "version": "0.0.2",
+  "description": "6to5 connect middleware plugin",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/sebmck/6to5-connect.git"
