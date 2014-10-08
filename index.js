@@ -33,9 +33,9 @@ module.exports = function (opts) {
     var compile = function () {
       var transformOpts = _.clone(opts.options);
 
-      to5.transformFile(opts.dest, transformOpts, function (err, transformed) {
+      to5.transformFile(opts.dest, transformOpts, function (err, result) {
         if (err) return next(err);
-        write(transformed);
+        write(result.code);
       });
     };
 
