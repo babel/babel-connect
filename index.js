@@ -14,7 +14,7 @@ module.exports = function (opts) {
 
   return function (req, res, next) {
     var url = req.url;
-    if (!to5.util.canCompile(url)) return next();
+    if (!to5.canCompile(url)) return next();
 
     var dest = path.join(opts.dest, url);
     var src  = path.join(opts.src, url);
