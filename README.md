@@ -1,6 +1,6 @@
 # 6to5-connect
 
-[6to5](https://github.com/sebmck/6to5) [connect](https://github.com/senchalabs/connect) plugin
+[6to5](https://github.com/6to5/6to5) [connect](https://github.com/senchalabs/connect) plugin
 
 ## Installation
 
