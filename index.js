@@ -1,5 +1,5 @@
 var path = require("path");
-var to5  = require("6to5");
+var to5  = require("6to5-core");
 var fs   = require("fs");
 var _    = require("lodash");
 
