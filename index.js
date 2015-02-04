@@ -20,13 +20,18 @@ module.exports = function (opts) {
     var src  = path.join(opts.src, url);
     var srcStat;
 
+    var send = function (data) {
+      res.set('Content-Type', 'application/javascript');
+      res.end(data);
+    };
+
     var write = function (transformed) {
       fs.writeFile(dest, transformed, function (err) {
         if (err) {
           next(err);
         } else {
           cache[url] = +srcStat.mtime;
-          next();
+          send(transformed);
         }
       });
     };
@@ -44,7 +49,10 @@ module.exports = function (opts) {
       if (cache[url] !== +srcStat.mtime) {
         compile();
       } else {
-        next();
+        fs.readFile(dest, function (err, data) {
+          if (err) return next(err);
+          send(data);
+        });
       }
     };
 
