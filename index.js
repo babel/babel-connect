@@ -18,7 +18,7 @@ module.exports = function (opts) {
 
     var dest = path.join(opts.dest, url);
     var src  = path.join(opts.src, url);
-    var srcStat, destStat;
+    var srcStat;
 
     var write = function (transformed) {
       fs.writeFile(dest, transformed, function (err) {
@@ -41,7 +41,7 @@ module.exports = function (opts) {
     };
 
     var destExists = function () {
-      if (cache[url] < +destStat.mtime) {
+      if (cache[url] !== +srcStat.mtime) {
         compile();
       } else {
         next();
@@ -55,7 +55,6 @@ module.exports = function (opts) {
 
       fs.stat(dest, function (err, stat) {
         if (err && err.code !== 'ENOENT') return next(err);
-        destStat = stat;
 
         if (!err && cache[dest]) {
           destExists();
