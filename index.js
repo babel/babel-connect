@@ -1,5 +1,6 @@
 var path = require("path");
 var to5  = require("6to5-core");
+var url  = require("url");
 var fs   = require("fs");
 var _    = require("lodash");
 
@@ -13,11 +14,11 @@ module.exports = function (opts) {
   var cache = Object.create(null);
 
   return function (req, res, next) {
-    var url = req.url;
-    if (!to5.canCompile(url)) return next();
+    if (!to5.canCompile(req.url)) return next();
 
-    var dest = path.join(opts.dest, url);
-    var src  = path.join(opts.src, url);
+    var pathname = path.normalize(url.parse(req.url).pathname);
+    var dest = path.join(opts.dest, pathname);
+    var src  = path.join(opts.src, pathname);
     var srcStat;
 
     var send = function (data) {
@@ -30,7 +31,7 @@ module.exports = function (opts) {
         if (err) {
           next(err);
         } else {
-          cache[url] = +srcStat.mtime;
+          cache[pathname] = +srcStat.mtime;
           send(transformed);
         }
       });
@@ -65,7 +66,7 @@ module.exports = function (opts) {
         next();
       } else if (err) {
         next(err);
-      } else if (cache[url] === +stat.mtime) {
+      } else if (cache[pathname] === +stat.mtime) {
         tryCache();
       } else {
         compile();
