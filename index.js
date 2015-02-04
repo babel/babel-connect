@@ -10,7 +10,7 @@ module.exports = function (opts) {
     src:     "assets"
   });
 
-  var cache = {};
+  var cache = Object.create(null);
 
   return function (req, res, next) {
     var url = req.url;
