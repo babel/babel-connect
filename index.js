@@ -38,38 +38,38 @@ module.exports = function (opts) {
 
     var compile = function () {
       var transformOpts = _.clone(opts.options);
-
       to5.transformFile(src, transformOpts, function (err, result) {
-        if (err) return next(err);
-        write(result.code);
+        if (err) {
+          next(err);
+        } else {
+          write(result.code);
+        }
       });
     };
 
-    var destExists = function () {
-      if (cache[url] !== +srcStat.mtime) {
-        compile();
-      } else {
-        fs.readFile(dest, function (err, data) {
-          if (err) return next(err);
+    var tryCache = function () {
+      fs.readFile(dest, function (err, data) {
+        if (err && err.code === 'ENOENT') {
+          compile();
+        } else if (err) {
+          next(err);
+        } else {
           send(data);
-        });
-      }
+        }
+      });
     };
 
     fs.stat(src, function (err, stat) {
-      if (err && err.code === 'ENOENT') return next();
-      else if (err) return next(err);
       srcStat = stat;
-
-      fs.stat(dest, function (err, stat) {
-        if (err && err.code !== 'ENOENT') return next(err);
-
-        if (!err && cache[dest]) {
-          destExists();
-        } else {
-          compile();
-        }
-      });
+      if (err && err.code === 'ENOENT') {
+        next();
+      } else if (err) {
+        next(err);
+      } else if (cache[url] === +stat.mtime) {
+        tryCache();
+      } else {
+        compile();
+      }
     });
   };
 };
