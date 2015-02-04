@@ -18,14 +18,14 @@ module.exports = function (opts) {
 
     var dest = path.join(opts.dest, url);
     var src  = path.join(opts.src, url);
-    var destStat;
+    var srcStat, destStat;
 
     var write = function (transformed) {
       fs.writeFile(dest, transformed, function (err) {
         if (err) {
           next(err);
         } else {
-          cache[url] = Date.now();
+          cache[url] = +srcStat.mtime;
           next();
         }
       });
@@ -51,6 +51,7 @@ module.exports = function (opts) {
     fs.stat(src, function (err, stat) {
       if (err && err.code === 'ENOENT') return next();
       else if (err) return next(err);
+      srcStat = stat;
 
       fs.stat(dest, function (err, stat) {
         if (err && err.code !== 'ENOENT') return next(err);
