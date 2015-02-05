@@ -11,7 +11,6 @@
   "bugs": {
     "url": "https://github.com/sebmck/6to5-connect/issues"
   },
-  "preferGlobal": true,
   "dependencies": {
     "6to5-core": "3.0.0",
     "lodash": "2.4.1",
