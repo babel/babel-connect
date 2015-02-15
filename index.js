@@ -1,8 +1,8 @@
-var path = require("path");
-var to5  = require("6to5-core");
-var url  = require("url");
-var fs   = require("fs");
-var _    = require("lodash");
+var bable = require("bable-core");
+var path  = require("path");
+var url   = require("url");
+var fs    = require("fs");
+var _     = require("lodash");
 
 module.exports = function (opts) {
   opts = _.defaults(opts || {}, {
@@ -14,7 +14,7 @@ module.exports = function (opts) {
   var cache = Object.create(null);
 
   return function (req, res, next) {
-    if (!to5.canCompile(req.url)) return next();
+    if (!bable.canCompile(req.url)) return next();
 
     var pathname = path.normalize(url.parse(req.url).pathname);
     var dest = path.join(opts.dest, pathname);
@@ -39,7 +39,7 @@ module.exports = function (opts) {
 
     var compile = function () {
       var transformOpts = _.clone(opts.options);
-      to5.transformFile(src, transformOpts, function (err, result) {
+      bable.transformFile(src, transformOpts, function (err, result) {
         if (err) {
           next(err);
         } else {

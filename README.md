@@ -1,17 +1,17 @@
-# 6to5-connect
+# bable-connect
 
-[6to5](https://github.com/6to5/6to5) [connect](https://github.com/senchalabs/connect) plugin
+[Bable](https://github.com/bable/bable) [connect](https://github.com/senchalabs/connect) plugin
 
 ## Installation
 
-    $ npm install 6to5-connect
+    $ npm install bable-connect
 
 ## Usage
 
 ```javascript
-var to5Middleware = require("6to5-connect");
+var bableMiddleware = require("bable-connect");
 
-app.use(to5Middleware({
+app.use(bableMiddleware({
   options: {
     // options to use when transforming files
   },
