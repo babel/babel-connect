@@ -1,4 +1,4 @@
-var bable = require("bable-core");
+var babel = require("babel-core");
 var path  = require("path");
 var url   = require("url");
 var fs    = require("fs");
@@ -14,7 +14,7 @@ module.exports = function (opts) {
   var cache = Object.create(null);
 
   return function (req, res, next) {
-    if (!bable.canCompile(req.url)) return next();
+    if (!babel.canCompile(req.url)) return next();
 
     var pathname = path.normalize(url.parse(req.url).pathname);
     var dest = path.join(opts.dest, pathname);
@@ -39,7 +39,7 @@ module.exports = function (opts) {
 
     var compile = function () {
       var transformOpts = _.clone(opts.options);
-      bable.transformFile(src, transformOpts, function (err, result) {
+      babel.transformFile(src, transformOpts, function (err, result) {
         if (err) {
           next(err);
         } else {

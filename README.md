@@ -1,17 +1,17 @@
-# bable-connect
+# babel-connect
 
-[Bable](https://github.com/bable/bable) [connect](https://github.com/senchalabs/connect) plugin
+[Babel](https://github.com/babel/babel) [connect](https://github.com/senchalabs/connect) plugin
 
 ## Installation
 
-    $ npm install bable-connect
+    $ npm install babel-connect
 
 ## Usage
 
 ```javascript
-var bableMiddleware = require("bable-connect");
+var babelMiddleware = require("babel-connect");
 
-app.use(bableMiddleware({
+app.use(babelMiddleware({
   options: {
     // options to use when transforming files
   },
