@@ -1,7 +1,7 @@
 {
   "name": "bable-connect",
   "description": "bable connect middleware plugin",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "author": "Sebastian McKenzie <sebmck@gmail.com>",
   "homepage": "https://github.com/sebmck/bable-connect",
   "repository": {
