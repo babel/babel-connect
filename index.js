@@ -1,8 +1,9 @@
-var babel = require("babel-core");
-var path  = require("path");
-var url   = require("url");
-var fs    = require("fs");
-var _     = require("lodash");
+var babel  = require("babel-core");
+var mkdirp = require("mkdirp");
+var path   = require("path");
+var url    = require("url");
+var fs     = require("fs");
+var _      = require("lodash");
 
 module.exports = function (opts) {
   opts = _.defaults(opts || {}, {
@@ -27,14 +28,17 @@ module.exports = function (opts) {
     };
 
     var write = function (transformed) {
-      fs.writeFile(dest, transformed, function (err) {
-        if (err) {
-          next(err);
-        } else {
-          cache[pathname] = +srcStat.mtime;
-          send(transformed);
-        }
-      });
+      mkdirp(path.dirname(dest), function (err) {
+        if (err) return next(err);
+        fs.writeFile(dest, transformed, function (err) {
+          if (err) {
+            next(err);
+          } else {
+            cache[pathname] = +srcStat.mtime;
+            send(transformed);
+          }
+        });
+      })
     };
 
     var compile = function () {
