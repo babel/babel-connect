@@ -12,10 +12,12 @@ module.exports = function (opts) {
     ignore:  false
   });
 
+  opts.ignore = babel._util.regexify(opts.ignore);
+
   var cache = Object.create(null);
 
   return function (req, res, next) {
-    if (opts.ignore && opts.ignore.test(req.url)) return next();
+    if (opts.ignore.test(req.url)) return next();
     if (!babel.canCompile(req.url)) return next();
 
     var pathname = path.normalize(url.parse(req.url).pathname);
