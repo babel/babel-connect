@@ -22,7 +22,7 @@ module.exports = function (opts) {
     var srcStat;
 
     var send = function (data) {
-      res.set('Content-Type', 'application/javascript');
+      res.setHeader('Content-Type', 'application/javascript');
       res.end(data);
     };
 
