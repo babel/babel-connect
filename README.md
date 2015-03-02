@@ -16,7 +16,8 @@ app.use(babelMiddleware({
     // options to use when transforming files
   },
   src: "assets",
-  dest: "cache"
+  dest: "cache",
+  ignore: /node_modules/
 }));
 
 app.use(connect.static("cache"));
