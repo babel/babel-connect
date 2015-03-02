@@ -8,12 +8,14 @@ module.exports = function (opts) {
   opts = _.defaults(opts || {}, {
     options: {},
     dest:    "cache",
-    src:     "assets"
+    src:     "assets",
+    ignore:  false
   });
 
   var cache = Object.create(null);
 
   return function (req, res, next) {
+    if (opts.ignore && opts.ignore.test(req.url)) return next();
     if (!babel.canCompile(req.url)) return next();
 
     var pathname = path.normalize(url.parse(req.url).pathname);
