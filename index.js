@@ -43,6 +43,7 @@ module.exports = function (opts) {
 
     var compile = function () {
       var transformOpts = _.clone(opts.options);
+      transformOpts.sourceFileName = 'babel:///' + src.replace(opts.src, '');
       babel.transformFile(src, transformOpts, function (err, result) {
         if (err) {
           next(err);
