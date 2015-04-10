@@ -13,7 +13,7 @@ module.exports = function (opts) {
     ignore:  false
   });
 
-  opts.ignore = babel._util.regexify(opts.ignore);
+  opts.ignore = babel.util.regexify(opts.ignore);
 
   var cache = Object.create(null);
 
