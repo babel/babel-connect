@@ -27,7 +27,7 @@ module.exports = function (opts) {
     var srcStat;
 
     var send = function (data) {
-      res.setHeader('Content-Type', 'application/javascript');
+      res.setHeader("Content-Type", "application/javascript");
       res.end(data);
     };
 
@@ -47,7 +47,7 @@ module.exports = function (opts) {
 
     var compile = function () {
       var transformOpts = _.clone(opts.options);
-      transformOpts.sourceFileName = 'babel:///' + src.replace(opts.src, '');
+      transformOpts.sourceFileName = "babel:///" + src.replace(opts.src, "");
       babel.transformFile(src, transformOpts, function (err, result) {
         if (err) {
           next(err);
@@ -59,7 +59,7 @@ module.exports = function (opts) {
 
     var tryCache = function () {
       fs.readFile(dest, function (err, data) {
-        if (err && err.code === 'ENOENT') {
+        if (err && err.code === "ENOENT") {
           compile();
         } else if (err) {
           next(err);
@@ -71,7 +71,7 @@ module.exports = function (opts) {
 
     fs.stat(src, function (err, stat) {
       srcStat = stat;
-      if (err && err.code === 'ENOENT') {
+      if (err && err.code === "ENOENT") {
         next();
       } else if (err) {
         next(err);
