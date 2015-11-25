@@ -19,7 +19,7 @@ module.exports = function (opts) {
 
   return function (req, res, next) {
     if (opts.ignore.test(req.url)) return next();
-    if (!babel.canCompile(req.url)) return next();
+    if (!babel.util.canCompile(req.url)) return next();
 
     var pathname = path.normalize(url.parse(req.url).pathname);
     var dest = path.join(opts.dest, pathname);
